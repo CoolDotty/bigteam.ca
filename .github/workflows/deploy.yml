@@ -1,0 +1,55 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        run: |
+          git init
+          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git fetch origin ${{ github.ref_name }}
+          git checkout FETCH_HEAD
+
+      - name: Setup pnpm
+        run: corepack enable && corepack prepare pnpm@latest --activate
+
+      - name: Build
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build
+
+      - name: Deploy to gh-pages
+        run: |
+          # Save built artifacts
+          mkdir -p /tmp/deploy
+          cp -r dist/* /tmp/deploy/
+
+          # Switch to gh-pages branch
+          git fetch origin gh-pages 2>/dev/null || true
+          git checkout -b gh-pages origin/gh-pages 2>/dev/null || git checkout --orphan gh-pages
+
+          # Clean and apply
+          git rm -rf . 2>/dev/null || true
+          cp -r /tmp/deploy/* .
+
+          # Set git identity (required for commit in CI)
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Commit and push (--force in case of orphan branch first push)
+          git add -A
+          git commit -m "deploy: $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "Nothing to deploy"
+          git push origin gh-pages --force
