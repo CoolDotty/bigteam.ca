@@ -1,8 +1,17 @@
 {
   "name": "bigteam.ca",
+  "type": "module",
   "private": true,
   "packageManager": "pnpm@10.4.1",
   "scripts": {
-    "build": "node -e \"require('fs').cpSync('src','dist',{recursive:true})\""
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "devDependencies": {
+    "astro": "^6.4.2"
+  },
+  "dependencies": {
+    "animejs": "^4.4.1"
   }
 }

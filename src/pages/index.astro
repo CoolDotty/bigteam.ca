@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>bigTEAM — We Make Your Game With You</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F5E6FF;
+      --accent: #FF69B4;
+      --accent-hover: #E0559E;
+      --secondary: #CBA4F7;
+      --text: #1A1225;
+      --text-light: #4A3F55;
+      --card: #FFFFFF;
+      --gradient-start: #FFE4F0;
+      --gradient-end: #E6D5FF;
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(180deg, var(--gradient-start) 0%, var(--bg) 100%);
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 10vw, 7rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .hero .tagline {
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      font-weight: 600;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .hero .subhead {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      max-width: 600px;
+      color: var(--text-light);
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .cta {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 1rem 2.5rem;
+      border-radius: 100px;
+      transition: background 0.2s, transform 0.2s;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .cta:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    /* ===== SECTIONS ===== */
+    section {
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .section-text {
+      max-width: 700px;
+      font-size: 1.1rem;
+      color: var(--text-light);
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .section-text p + p {
+      margin-top: 1rem;
+    }
+
+    /* ===== ABOUT ===== */
+    .about {
+      text-align: center;
+    }
+
+    .about h2 {
+      margin-bottom: 2rem;
+    }
+
+    /* ===== BENEFITS ===== */
+    .benefits {
+      text-align: center;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .benefit-card {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: left;
+      box-shadow: 0 4px 24px rgba(26, 18, 37, 0.06);
+    }
+
+    .benefit-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--accent);
+    }
+
+    .benefit-card p {
+      font-size: 0.95rem;
+      color: var(--text-light);
+    }
+
+    /* ===== LOGO SCROLL ===== */
+    .logo-scroll {
+      margin-top: 3rem;
+      overflow-x: auto;
+      display: flex;
+      gap: 2rem;
+      padding: 1rem 0;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .logo-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .logo-item {
+      flex-shrink: 0;
+      background: var(--card);
+      border-radius: 16px;
+      padding: 1rem 2rem;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      box-shadow: 0 2px 12px rgba(26, 18, 37, 0.05);
+      white-space: nowrap;
+    }
+
+    /* ===== FEATURED ===== */
+    .featured {
+      padding-top: 4rem;
+    }
+
+    .featured h2 {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .featured-card {
+      background: var(--card);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(26, 18, 37, 0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .featured-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(26, 18, 37, 0.12);
+    }
+
+    .featured-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .featured-card .card-body {
+      padding: 1.5rem;
+    }
+
+    .featured-card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .featured-card .role {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .featured-card p {
+      font-size: 0.95rem;
+      color: var(--text-light);
+    }
+
+    /* ===== MORE WORK ===== */
+    .more-work {
+      padding-bottom: 4rem;
+    }
+
+    .more-work h2 {
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .more-work .sub {
+      text-align: center;
+      color: var(--text-light);
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .carousel-wrap {
+      position: relative;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .carousel {
+      display: flex;
+      gap: 1.25rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding: 1rem 2rem 2rem;
+      margin: 0 -2rem;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .carousel::after {
+      content: '';
+      flex-shrink: 0;
+      width: 2rem;
+    }
+
+    .carousel-card {
+      flex-shrink: 0;
+      width: 260px;
+      scroll-snap-align: start;
+      background: var(--card);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(26, 18, 37, 0.06);
+      transition: transform 0.2s;
+    }
+
+    .carousel-card:hover {
+      transform: scale(1.03);
+    }
+
+    .carousel-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .carousel-card .card-info {
+      padding: 1rem;
+    }
+
+    .carousel-card h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .carousel-card .author {
+      font-size: 0.8rem;
+      color: var(--text-light);
+    }
+
+    .carousel-fade {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 80px;
+      background: linear-gradient(90deg, transparent, var(--bg));
+      pointer-events: none;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: 4rem 2rem;
+      border-top: 1px solid rgba(26, 18, 37, 0.08);
+    }
+
+    footer .socials {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    footer .socials a {
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: opacity 0.2s;
+    }
+
+    footer .socials a:hover {
+      opacity: 0.7;
+    }
+
+    footer p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 640px) {
+      section {
+        padding: 4rem 1.5rem;
+      }
+
+      .featured-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .carousel-card {
+        width: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>bigTEAM</h1>
+    <p class="tagline">We Make Your Game With You</p>
+    <p class="subhead">
+      Queer-led codevelopment studio. We assemble the right indie talent,
+      manage the contractors, and ship bespoke work for a flat price.
+      You get a team without the overhead.
+    </p>
+    <a href="mailto:hi@bigteam.ca" class="cta">hi@bigteam.ca</a>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about">
+    <h2>Who We Are</h2>
+    <div class="section-text">
+      <p>
+        We're friends of friends of friends who make videogames — a queer-led network
+        of indie developers, artists, and designers. When you work with bigTEAM,
+        you get a curated squad hand-picked for your project, not whoever's on the bench.
+      </p>
+      <p>
+        We handle the messy parts: sourcing contractors, managing timelines, and
+        making sure everyone gets paid. You get one flat price and one point of contact.
+        Bring us your own talent, or let us find the perfect fit.
+      </p>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="benefits">
+    <h2>Why Work With Us</h2>
+    <div class="section-text">
+      <p>
+        <!-- TODO: Add verified stat on diverse teams and grant success rates -->
+        Diverse teams bring perspectives that funders and players are looking for.
+        Many funding bodies explicitly prioritize underrepresented voices — we help
+        you meet those criteria and tell that story authentically.
+      </p>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <h3>Flat Price</h3>
+        <p>No surprise invoices. One agreed-upon fee covers the whole engagement.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>We Manage Risk</h3>
+        <p>Contractor falls through? Scope creeps? That's on us, not you.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>Use Your People or Ours</h3>
+        <p>Have a favourite artist? Bring them. Need a whole team built from scratch? We got you.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>Grant-Friendly</h3>
+        <p>We understand what funders want to see — from Creative BC to the CMF.</p>
+      </div>
+    </div>
+    <div class="logo-scroll">
+      <div class="logo-item">Creative BC</div>
+      <div class="logo-item">Canada Media Fund</div>
+      <div class="logo-item">CMF — Black & Racialized Communities</div>
+      <div class="logo-item">CMF — Indigenous Production</div>
+      <div class="logo-item">CMF — OLMC Funding</div>
+      <div class="logo-item">Creative Pathways</div>
+    </div>
+  </section>
+
+  <!-- FEATURED WORK -->
+  <section class="featured">
+    <h2>Featured Work</h2>
+    <div class="featured-grid">
+      <a href="https://cooldotty.itch.io/mermakin-it" target="_blank" class="featured-card">
+        <img src="/images/featured-mermakin.png" alt="Mer-makin it! screenshot" loading="lazy">
+        <div class="card-body">
+          <div class="role">Design & Development</div>
+          <h3>Mer-makin it!</h3>
+          <p>You are a humble mermaid chef. Above you, the great Fish God stirs. Hungry, grumpy, and easily displeased.</p>
+        </div>
+      </a>
+      <a href="https://cooldotty.itch.io/date-or-mate" target="_blank" class="featured-card">
+        <img src="/images/featured-dateormate.png" alt="Date or Mate screenshot" loading="lazy">
+        <div class="card-body">
+          <div class="role">Design & Development</div>
+          <h3>Date or Mate</h3>
+          <p>A strategic dating sim made in 48 hours for Global Game Jam 2026.</p>
+        </div>
+      </a>
+      <a href="https://vishnu-suresh.itch.io/cosmic-cruiser-repair" target="_blank" class="featured-card">
+        <img src="/images/featured-cosmic.jpg" alt="Cosmic Cruiser Repair screenshot" loading="lazy">
+        <div class="card-body">
+          <div class="role">Codevelopment Partner</div>
+          <h3>Cosmic Cruiser Repair</h3>
+          <p>2D isometric casual simulation-puzzle game. Repair quirky space vehicles for a lively crew of robots.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- MORE WORK -->
+  <section class="more-work">
+    <h2>And So Many More</h2>
+    <p class="sub">A few more games we've touched — scroll to explore</p>
+    <div class="carousel-wrap">
+      <div class="carousel">
+        <a href="https://cooldotty.itch.io/pop-her-bubble" target="_blank" class="carousel-card">
+          <img src="https://img.itch.zone/aW1nLzE5NTk3MDc5LnBuZw==/315x250%23c/Y9j7Za.png" alt="Pop Her Bubble!" loading="lazy">
+          <div class="card-info">
+            <h4>Pop Her Bubble!</h4>
+            <p class="author">CoolDotty</p>
+          </div>
+        </a>
+        <a href="https://bigteamvg.itch.io/arktos-pass" target="_blank" class="carousel-card">
+          <img src="https://img.itch.zone/aW1nLzE3MzEwMzk1LnBuZw==/315x250%23c/jcTq%2Ft.png" alt="Arktos' Pass" loading="lazy">
+          <div class="card-info">
+            <h4>Arktos' Pass</h4>
+            <p class="author">bigTEAM</p>
+          </div>
+        </a>
+        <a href="https://bigteamvg.itch.io/meatboat" target="_blank" class="carousel-card">
+          <img src="https://img.itch.zone/aW1nLzE2MDU2MTMwLnBuZw==/315x250%23c/pY56ni.png" alt="MEATBOAT" loading="lazy">
+          <div class="card-info">
+            <h4>MEATBOAT</h4>
+            <p class="author">bigTEAM</p>
+          </div>
+        </a>
+        <a href="https://bigteamvg.itch.io/can-we-keep-it" target="_blank" class="carousel-card">
+          <img src="https://img.itch.zone/aW1nLzE0ODQ3NDg1LnBuZw==/315x250%23c/EwE2Zu.png" alt="Can We Keep It?" loading="lazy">
+          <div class="card-info">
+            <h4>Can We Keep It?</h4>
+            <p class="author">bigTEAM</p>
+          </div>
+        </a>
+        <a href="https://bigteamvg.itch.io/the-wreckening" target="_blank" class="carousel-card">
+          <img src="https://img.itch.zone/aW1nLzE0MzU4MTQ0LnBuZw==/315x250%23c/PeJh3J.png" alt="The Wreckening" loading="lazy">
+          <div class="card-info">
+            <h4>The Wreckening</h4>
+            <p class="author">bigTEAM</p>
+          </div>
+        </a>
+        <a href="https://bigteamvg.itch.io/organic-growth" target="_blank" class="carousel-card">
+          <img src="https://img.itch.zone/aW1nLzEyOTg0NTA2LmpwZw==/315x250%23c/lleOY%2B.jpg" alt="Organic Growth" loading="lazy">
+          <div class="card-info">
+            <h4>Organic Growth</h4>
+            <p class="author">bigTEAM</p>
+          </div>
+        </a>
+        <a href="https://bigteamvg.itch.io/the-not-so-big-escape" target="_blank" class="carousel-card">
+          <img src="https://img.itch.zone/aW1nLzEyNzIwMjYwLnBuZw==/315x250%23c/5Uburd.png" alt="The Not-so Big Escape" loading="lazy">
+          <div class="card-info">
+            <h4>The Not-so Big Escape</h4>
+            <p class="author">bigTEAM</p>
+          </div>
+        </a>
+        <a href="https://cooldotty.itch.io/octo-arms-deliverance" target="_blank" class="carousel-card">
+          <img src="https://img.itch.zone/aW1nLzEyMDE3NjAxLnBuZw==/315x250%23c/G9gLtk.png" alt="Octo Arms Deliverance" loading="lazy">
+          <div class="card-info">
+            <h4>Octo Arms Deliverance</h4>
+            <p class="author">CoolDotty</p>
+          </div>
+        </a>
+        <a href="https://cooldotty.itch.io/big-zeal-adventure-2020" target="_blank" class="carousel-card">
+          <img src="https://img.itch.zone/aW1nLzM4MzI1NDUuZ2lm/315x250%23c/NCEYiS.gif" alt="Big Zeal Adventure 2020" loading="lazy">
+          <div class="card-info">
+            <h4>Big Zeal Adventure 2020</h4>
+            <p class="author">CoolDotty</p>
+          </div>
+        </a>
+        <a href="https://cooldotty.itch.io/last-bullet-make-it-count" target="_blank" class="carousel-card">
+          <img src="https://img.itch.zone/aW1nLzIzNDYzMTEucG5n/315x250%23c/G4F8Hw.png" alt="Last Mag: Make it count" loading="lazy">
+          <div class="card-info">
+            <h4>Last Mag: Make it count</h4>
+            <p class="author">CoolDotty</p>
+          </div>
+        </a>
+        <a href="https://cooldotty.itch.io/fvf-decks" target="_blank" class="carousel-card">
+          <img src="https://img.itch.zone/aW1nLzE0MzY2NjI3LnBuZw==/315x250%23c/FHFqBv.png" alt="Friends vs Friends Deck Builder" loading="lazy">
+          <div class="card-info">
+            <h4>Friends vs Friends Deck Builder</h4>
+            <p class="author">CoolDotty</p>
+          </div>
+        </a>
+        <a href="http://www.nopetrides.com/projectpages/swordstrikespacevampires/swordstrikespacevampires.html" target="_blank" class="carousel-card">
+          <div style="height: 180px; background: linear-gradient(135deg, #341f33, #1a1225); display: flex; align-items: center; justify-content: center;">
+            <span style="color: var(--accent); font-weight: 700; font-size: 0.9rem; text-align: center; padding: 1rem;">Sword Strike Space Vampires</span>
+          </div>
+          <div class="card-info">
+            <h4>Sword Strike Space Vampires</h4>
+            <p class="author">Town One 2023 Winner</p>
+          </div>
+        </a>
+      </div>
+      <div class="carousel-fade"></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="socials">
+      <a href="https://bsky.app/profile/bigteam.gg" target="_blank">Bluesky</a>
+      <a href="https://twitter.com/bigTEAMvg" target="_blank">Twitter</a>
+      <a href="https://bigteamvg.itch.io/" target="_blank">itch.io</a>
+    </div>
+    <p>hi@bigteam.ca — bigTEAM 2026</p>
+  </footer>
+
+  <script type="module">
+    import { animate, stagger } from 'https://unpkg.com/animejs@4.4.1/dist/bundles/anime.esm.min.js';
+
+    function observeAndAnimate(selector, options) {
+      const elements = document.querySelectorAll(selector);
+      if (!elements.length) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const targets = entry.target.matches(selector) ? [entry.target] : entry.target.querySelectorAll(selector);
+            animate(targets.length ? targets : entry.target, {
+              opacity: [0, 1],
+              translateY: [40, 0],
+              ease: 'outBack(1.2)',
+              duration: 800,
+              delay: targets.length > 1 ? stagger(100) : 0,
+              ...options
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      elements.forEach(el => observer.observe(el));
+    }
+
+    // Hero elements — animate immediately
+    animate('.hero h1, .hero .tagline, .hero .subhead, .hero .cta', {
+      opacity: [0, 1],
+      translateY: [30, 0],
+      ease: 'outBack(1.2)',
+      duration: 900,
+      delay: stagger(120),
+    });
+
+    // Section headings
+    observeAndAnimate('h2');
+
+    // Section text
+    observeAndAnimate('.section-text');
+
+    // Benefit cards
+    const benefitGrid = document.querySelector('.benefits-grid');
+    if (benefitGrid) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animate('.benefit-card', {
+              opacity: [0, 1],
+              translateY: [40, 0],
+              ease: 'outBack(1.2)',
+              duration: 700,
+              delay: stagger(100),
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      observer.observe(benefitGrid);
+    }
+
+    // Logo scroll
+    observeAndAnimate('.logo-scroll');
+
+    // Featured cards
+    const featuredGrid = document.querySelector('.featured-grid');
+    if (featuredGrid) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animate('.featured-card', {
+              opacity: [0, 1],
+              translateY: [40, 0],
+              ease: 'outBack(1.2)',
+              duration: 800,
+              delay: stagger(150),
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      observer.observe(featuredGrid);
+    }
+
+    // More work sub + carousel
+    observeAndAnimate('.more-work .sub');
+    const carouselWrap = document.querySelector('.carousel-wrap');
+    if (carouselWrap) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animate('.carousel-card', {
+              opacity: [0, 1],
+              translateX: [60, 0],
+              ease: 'outBack(1.2)',
+              duration: 700,
+              delay: stagger(80),
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      observer.observe(carouselWrap);
+    }
+  </script>
+
+</body>
+</html>
